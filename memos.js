@@ -1011,20 +1011,6 @@ function searchNow(serchText){
 }
 
 //显示订阅列表
-userlistBtn.addEventListener("click", function () {
-  let userlistDom = document.querySelector(".userlist");
-  if(userlistDom){
-    userlistDom.remove();
-  }else{
-    let userlistDom = `<div class="userlist card-item d-flex flex-wrap mb-3 animate__animated animate__fadeIn">`;
-    for (var i = 0; i < memoList.length; i++) {
-      let nowMemo = memoList[i]
-      userlistDom += `<div onclick="getUserMemos('${nowMemo.link}', '${nowMemo.creatorId}','${nowMemo.creatorName.replace(/'/g, "’")}','${nowMemo.avatar}')" class="item-avatar" style="background-image:url(${nowMemo.avatar})"></div>`
-    }
-    userlistDom += `</div>`;
-    memosDom.insertAdjacentHTML('beforebegin', userlistDom);
-  }
-});
 
 //返回个人主页
 function goHome(){
