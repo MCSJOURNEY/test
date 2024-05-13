@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }else{
     try {
-     
+      memoOurList = await getMemoListData("https://memobbs.app/memos.json"); // 获取自定义列表
     } catch (error) {
       memoOurList = memoDefaultList
     }
@@ -337,6 +337,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   getEditIcon();
 });
 
+// 获取自定义 memos.json 订阅列表
+async function getMemoListData(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  if(filterName){
+    let namesToRemove = filterName.replace(/，/g, ",").split(',');
+    for (let name of namesToRemove) {
+    let nameIndex = data.myMemoList.findIndex(item => (item.creatorName == name));
+      if (nameIndex !== -1) {
+        delete data.myMemoList.splice(nameIndex, 1);
+      }
+    };
+  }
+  return data.myMemoList
+}
 
 function memoFollow(mode) {
   //记忆显示模式
@@ -996,6 +1011,7 @@ function searchNow(serchText){
 }
 
 //显示订阅列表
+
 
 //返回个人主页
 function goHome(){
